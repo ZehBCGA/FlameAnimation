@@ -6,7 +6,7 @@
 CRGB leds[NUM_LEDS];
 
 void setup() {
-  FastLED.addLeds<WS2812B, LED_PIN, RGB>(leds, NUM_LEDS);
+  FastLED.addLeds<WS2812B, LED_PIN, GRB>(leds, NUM_LEDS);
 }
 
 void loop() {
@@ -32,8 +32,10 @@ void loop() {
   }
 
   // Step 4.  Convert heat to LED colors
+  CRGBPalette16 palette;
+  palette = CRGBPalette16(CRGB::Green, CRGB::Yellow);
   for( int j = NUM_LEDS - 1; j >= 0; j--) {
-    CRGB color = HeatColor( heat[j]);
+    CRGB color = ColorFromPalette(palette, heat[j]);
     leds[j] = color;
   }
 
